@@ -1,0 +1,47 @@
+@startuml
+title SmartHome Container Diagram
+
+top to bottom direction
+
+!include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+
+'СУЩНОСТИ
+Person(user, "Пользователь", "Пользователь системы")
+Container(device, "Датчики", "", "Датчик умного дома")
+System_Boundary(SmartHomeSystemContainer, "Умный дом") {
+    Container(user_interaction, "Взаимодействие с пользователем", "", "") 
+    Container(kafka, "Message Broker", "", "брокер сообщений")
+    Container(data_processing, "Модуль обработки данных", "", "")
+    Container(analysis, "Модуль аналитики", "", "")
+}
+
+System_Ext(bank, "Банковская система", "Обработка платежей")
+Container(controller, "Контроллер", "", "Контроллер умного дома")
+
+'СВЯЗИ
+'пользователь
+Rel(user, user_interaction, "Использует систему")
+
+'пользовательское взаимодействие
+Rel(user_interaction, kafka, "Запрос данных")
+Rel(user_interaction, bank, "Оплата услуг")
+
+'kafka
+Rel(kafka, user_interaction, "Предоставляет данные о доме")
+Rel(kafka, data_processing, "Получение данных с датчиков ")
+Rel(kafka, analysis, "Подписка на обновление данных")
+
+
+'датчик
+Rel(device, kafka, "Отправляет данные измерений")
+
+'обработка данных
+Rel(data_processing, kafka, "Сохранение обработанных данных")
+
+'анализ данных
+Rel(analysis, data_processing, "Обработанные данные")
+Rel(analysis, user, "Отправляет уведомления")
+Rel(analysis, controller, "Управляющее воздействие")
+
+@enduml

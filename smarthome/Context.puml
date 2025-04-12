@@ -1,0 +1,20 @@
+@startuml
+title SmartHome Context Diagram
+
+top to bottom direction
+
+!include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "Пользователь", "Пользователь системы")
+Container(device, "Датчик", "", "Датчик умного дома")
+System(SmartHomeSystem, "Умный дом", "Система управления данными датчиков и выдачи управляющий воздействий")
+
+System_Ext(bank, "Банковская система", "Обработка платежей")
+Container(controller, "Контроллер", "", "Контроллер умного дома")
+
+Rel(user, SmartHomeSystem, "Использует систему")
+Rel(device, SmartHomeSystem, "Отправляет данные измерений")
+Rel(SmartHomeSystem, bank, "Processes payments")
+Rel(SmartHomeSystem, controller, "Управляющее воздействие")
+
+@enduml

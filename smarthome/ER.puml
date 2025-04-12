@@ -1,0 +1,73 @@
+@startuml
+title SmartHome management code diagram 
+
+top to bottom direction
+
+class House {
+    +UUID id
+    +String name
+    +List<UUID> users
+    +List<UUID> devices
+}
+
+class User {
+    +UUID id
+    +String name
+    +String email
+    +String role
+    +UUID tariff_id    
+}
+
+class Device {
+    +UUID id  
+    +String name
+    +UUID type_id
+    +UUID house_id
+    +String serial_number
+    +boolean status
+    +void enable(boolean enable)
+}
+
+class Module {
+    +UUID id
+    +String name
+    +UUID type_id
+    +UUID device_id
+    +String serial_number
+    +boolean status
+    +void enable(boolean enable)
+}
+
+class DeviceType {
+    +UUID id
+    +String name
+}
+
+class ModuleType {
+    +UUID id
+    +String name
+}
+
+class TelemetryData {
+    +UUID id
+    +String json_data
+    +UUID module_id
+}
+
+class TariffPlan {
+    +UUID id
+    +String type
+    +Date startDate
+    +Date endDate
+}
+
+House::users -- User::id
+House::devices -- Device::id
+Device::type_id -- DeviceType::id
+Device::house_id -- House::id
+Module::type_id -- ModuleType::id
+Module::device_id -- Device::id
+TelemetryData::module_id -- Module::id
+User::tariff_id -- TariffPlan::id
+
+@enduml

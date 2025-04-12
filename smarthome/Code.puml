@@ -1,0 +1,50 @@
+@startuml
+title SmartHome Data Processing Component Code Diagram
+
+top to bottom direction
+
+!includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
+
+
+class TelemetryDataReciever {
+
+}
+
+class TelemetryDataConvertor {
+
+}
+
+class AnalyticDataReciever {
+
+}
+
+
+class IncorrectDataException {
+
+}
+
+
+class EventStore {
+
+}
+
+
+class DataProducer {
+
+}
+
+
+TelemetryDataReciever  -->  TelemetryDataConvertor : recieved data
+TelemetryDataConvertor  -->  IncorrectDataException : throws
+TelemetryDataConvertor  -->  EventStore : converted data
+TelemetryDataConvertor  -->  DataProducer : save converted data
+
+AnalyticDataReciever  -->  EventStore : analytic data
+AnalyticDataReciever  -->  IncorrectDataException : throws
+AnalyticDataReciever  -->  DataProducer : save analytic data
+
+
+EventStore  -->  GetHistoryResponse : data from store
+
+
+@enduml
