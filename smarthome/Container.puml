@@ -10,10 +10,10 @@ top to bottom direction
 Person(user, "Пользователь", "Пользователь системы")
 Container(device, "Датчики", "", "Датчик умного дома")
 System_Boundary(SmartHomeSystemContainer, "Умный дом") {
-    Container(user_interaction, "Взаимодействие с пользователем", "", "") 
-    Container(kafka, "Message Broker", "", "брокер сообщений")
-    Container(data_processing, "Модуль обработки данных", "", "")
-    Container(analysis, "Модуль аналитики", "", "")
+    Container(user_interaction, "Взаимодействие с пользователем", "web интерфейс и API", "") 
+    Container(kafka, "Брокер сообщений", "Kafka", "")
+    Container(data_processing, "Модуль обработки данных", "Java", "")
+    Container(analysis, "Модуль аналитики", "Java", "")
 }
 
 System_Ext(bank, "Банковская система", "Обработка платежей")
