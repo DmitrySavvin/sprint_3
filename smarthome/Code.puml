@@ -5,33 +5,53 @@ top to bottom direction
 
 !includeurl https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Component.puml
 
+class Telemetry extends DeviceData {
+    PJson convertedData    
+}
+
+class AnalyzedData extends DeviceData {
+    PJson convertedData    
+}
+
+abstract class DeviceData {
+    Object getByKey(String key)
+}
+
+abstract class Event {
+
+}
 
 class TelemetryDataReciever {
-
+    Pjson data
 }
 
 class TelemetryDataConvertor {
-
+    Telemetry convert(PJson data)
 }
 
 class AnalyticDataReciever {
-
+    AnalyzedData data
 }
 
 
 class IncorrectDataException {
-
+    String message
 }
 
 
 class EventStore {
-
+    List<Event> events
 }
 
 
 class DataProducer {
-
+    DeviceData data
 }
+
+class GetHistoryResponse {
+   List<EventStore> getHistory(Predicate<EventStore> filter)
+}
+
 
 
 TelemetryDataReciever  -->  TelemetryDataConvertor : recieved data
