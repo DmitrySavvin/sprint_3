@@ -19,14 +19,14 @@ System_Boundary(SmartHomeSystemContainer, "Умный дом") {
         Component(payment_processor, "PaymentService", "обработка платежей пользователя", "")
     } 
     Container_Boundary("message_broker", "Message Broker", "брокер сообщений",  ""){
-        Component(kafka, "Kafka", "", "брокер сообщений")
+        Component(kafka, "брокер сообщений", "Kafka", "")
     }
-    Container(data_processing, "Модуль обработки данных") {
+    Container(data_processing, "Модуль обработки данных", "Java") {
         Component(data_processor, "DataProcessor", "обрабатывает входящие данные", "")
         Component(event_store, "EventStore", "хранилище событий", "")
        
     }
-    Container(analysis, "Модуль аналитики", "", "") {
+    Container(analysis, "Модуль аналитики", "Java", "") {
         Component(analytic_service, "AnalyticService", "сервис анализа данных", "")
         Component(notification_service, "NotificationService", "сервис уведомлений", "")
         Component(control_service, "DeviceControlService", "сервис управления устройствами", "")
